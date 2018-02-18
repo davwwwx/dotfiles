@@ -1,0 +1,1 @@
+../apps/wappalyzer-cli/wp.sh

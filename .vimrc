@@ -6,7 +6,7 @@ let g:solarized_termtrans=1
 " Make Vim more useful
 set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set clipboard=unnamed
+set clipboard=unnamedplus
 " Enhance command-line completion
 set wildmenu
 " Allow cursor keys in insert mode
@@ -75,11 +75,6 @@ set showmode
 set title
 " Show the (partial) command as it’s being typed
 set showcmd
-" Use relative line numbers
-if exists("&relativenumber")
-	set relativenumber
-	au BufReadPost * set relativenumber
-endif
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
@@ -104,3 +99,39 @@ if has("autocmd")
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
+
+" Set to auto read when a file is changed from the outside
+set autoread
+set magic
+set smarttab
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-fugitive'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+"filetype plugin on
+
+map <C-b> :NERDTreeToggle<CR>
+map <C-t> :bnext<CR>
+
+let g:multi_cursor_next_key='<C-d>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+let g:multi_cursor_start_key='<C-d>'
+
+let g:airline_powerline_fonts = 1
+let g:airline_skip_empty_sections = 1
+let g:airline_theme='ayu_mirage'

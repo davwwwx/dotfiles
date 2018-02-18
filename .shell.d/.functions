@@ -1,13 +1,6 @@
-#!/usr/bin/env bash
-
 # Create a new directory and enter it
 function mkd() {
 	mkdir -p "$@" && cd "$_";
-}
-
-# Change working directory to the top-most Finder window location
-function cdf() { # short for `cdfinder`
-	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
 }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
@@ -61,7 +54,7 @@ function fs() {
 # Use Git’s colored diff when available
 hash git &>/dev/null;
 if [ $? -eq 0 ]; then
-	function diff() {
+	function gdiff() {
 		git diff --no-index --color-words "$@";
 	}
 fi;
@@ -88,7 +81,7 @@ function server() {
 # (Requires PHP 5.4.0+.)
 function phpserver() {
 	local port="${1:-4000}";
-	local ip=$(ipconfig getifaddr en1);
+	local ip="127.0.0.1";
 	sleep 1 && open "http://${ip}:${port}/" &
 	php -S "${ip}:${port}";
 }
@@ -115,6 +108,10 @@ function json() {
 # Run `dig` and display the most useful info
 function digga() {
 	dig +nocmd "$1" any +multiline +noall +answer;
+}
+
+function digger() {
+	dig +nocmd "$1" "$2" +multiline +noall +answer;
 }
 
 # UTF-8-encode a string of Unicode symbols
@@ -160,16 +157,6 @@ function getcertnames() {
 	fi;
 }
 
-# `s` with no arguments opens the current directory in Sublime Text, otherwise
-# opens the given location
-function s() {
-	if [ $# -eq 0 ]; then
-		subl .;
-	else
-		subl "$@";
-	fi;
-}
-
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
 function v() {
@@ -180,20 +167,25 @@ function v() {
 	fi;
 }
 
-# `o` with no arguments opens the current directory, otherwise opens the given
-# location
-function o() {
-	if [ $# -eq 0 ]; then
-		open .;
-	else
-		open "$@";
-	fi;
+function rand64() {
+  head -c 1024 < /dev/urandom | base64 -w $@ | head -n 1
 }
 
-# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
-# the `.git` directory, listing directories first. The output gets piped into
-# `less` with options to preserve color and line numbers, unless the output is
-# small enough for one screen.
-function tre() {
-	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+function genkey() {
+  openssl genrsa -out $1 2048
 }
+
+function gencsr() {
+  openssl req -new -sha256 -key $1 -out $2
+}
+
+function verifycsr() {
+  openssl req -noout -text -in $1
+}
+
+function fullurlencode() {
+  node -e "console.log('$1'.split('').map(i=>'%'+i.charCodeAt().toString(16)).join(''))"
+}
+
+eval $(lesspipe)
+$HOME/.lessfilter

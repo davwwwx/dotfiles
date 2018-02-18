@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# show directory as listing
+if test -d "$1"; then
+ /bin/ls -alF -- "$1"
+
+ # we handled this one ourself
+ exit 0
+fi
+
+# handle by regular lesspipe
+exit 1
