@@ -5,7 +5,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though :D
 alias -- -="cd -"
-alias oldpwd="cd $OLDPWD"
+alias oldpwd="cd \$OLDPWD"
 
 # Shortcuts
 alias dl="cd ~/Downloads"
