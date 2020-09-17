@@ -9,9 +9,11 @@ function doIt() {
 		--exclude ".DS_Store" \
 		--exclude ".osx" \
 		--exclude "bootstrap.sh" \
+		--exclude "apt.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \
 		--exclude ".gitignore" \
+		--exclude ".gitmodules" \
 		--exclude ".editorconfig" \
 		--exclude "ss.png" \
 		-avh --no-perms . ~;
