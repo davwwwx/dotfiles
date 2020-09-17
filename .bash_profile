@@ -10,13 +10,17 @@ source $HOME/.bash_prompt
 unset file;
 
 # Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob;
+shopt -s nocaseglob
 
 # Append to the Bash history file, rather than overwriting it
-shopt -s histappend;
+shopt -s histappend
 
 # Autocorrect typos in path names when using `cd`
-shopt -s cdspell;
+shopt -s cdspell
+
+# Autocorrect on directory names during word completion
+# if the directory name initially supplied does not exist.
+shopt -s dirspell
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -25,6 +29,10 @@ shopt -s checkwinsize
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
+
+# Check the status of any stopped and running jobs
+# before exiting an interactive shell.
+shopt -s checkjobs
 
 # Enable some Bash 4 features when possible:
 # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
@@ -45,7 +53,7 @@ if ! shopt -oq posix; then
 fi
 
 # Enable tab completion for `g` by marking it as an alias for `git`
-if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+if type _git &> /dev/null; then
 	complete -o default -o nospace -F _git g;
 fi;
 

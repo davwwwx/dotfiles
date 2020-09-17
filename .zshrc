@@ -1,7 +1,7 @@
 # Path to oh-my-zsh installation.
-export ZSH=/home/dvx/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
-ZSH_THEME="bira"
+ZSH_THEME="ys"
 COMPLETION_WAITING_DOTS="true"
 
 # CASE_SENSITIVE="true"
@@ -46,3 +46,6 @@ if [ -d $HOME/.shell.d ]; then
     [ -r "$file" ] && [ -f "$file" ] && source "$file";
   done
 fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

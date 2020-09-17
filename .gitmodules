@@ -25,9 +25,18 @@
 [submodule "apps/dirsearch"]
 	path = apps/dirsearch
 	url = https://github.com/maurosoria/dirsearch.git
-[submodule "apps/jsidle"]
-	path = apps/jsidle
-	url = https://github.com/svent/jsidle.git
 [submodule "apps/peda"]
 	path = apps/peda
 	url = https://github.com/longld/peda.git
+[submodule ".vim/bundle/gruvbox"]
+	path = .vim/bundle/gruvbox
+	url = https://github.com/morhetz/gruvbox
+[submodule "apps/gwenrecon"]
+	path = apps/gwenrecon
+	url = https://github.com/gwen001/myrecon.py/
+[submodule "apps/gwentools"]
+	path = apps/gwentools
+	url = https://github.com/gwen001/pentest-tools
+[submodule "apps/m4ll0ktools"]
+	path = apps/m4ll0ktools
+	url = https://github.com/m4ll0k/Bug-Bounty-Toolz

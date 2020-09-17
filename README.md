@@ -96,7 +96,7 @@ Suggestions/improvements
 ||
 
 
-## Inspired by
+## Affected by
 
 |  ||
 | ------ | ------ |
@@ -104,5 +104,9 @@ Suggestions/improvements
 | robbyrussell/oh-my-zsh | [https://github.com/robbyrussell/oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) |
 | Bash-it/bash-it | [https://github.com/Bash-it/bash-it](https://github.com/Bash-it/bash-it) |
 | thoughtbot/dotfiles | [https://github.com/thoughtbot/dotfiles](https://github.com/thoughtbot/dotfiles) |
+| tomnomnom/dotfiles | [https://github.com/tomnomnom/dotfiles/](https://github.com/tomnomnom/dotfiles/) |
+| gwen001/dotfiles | [https://github.com/gwen001/dotfiles](https://github.com/gwen001/dotfiles) |
+| m4ll0k/Bug-Bounty-Toolz | [https://github.com/m4ll0k/Bug-Bounty-Toolz](https://github.com/m4ll0k/Bug-Bounty-Toolz) |
+| KingOfBugbounty/KingOfBugBountyTips | [https://github.com/KingOfBugbounty/KingOfBugBountyTips](https://github.com/KingOfBugbounty/KingOfBugBountyTips) |
 | NERDERATIBLOG - Simplify Your Life With an SSH Config File | [http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/](http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/) |
 | chr4 - conf.d like directories for zsh/bash dotfiles | [https://chr4.org/blog/2014/09/10/conf-dot-d-like-directories-for-zsh-slash-bash-dotfiles/](https://chr4.org/blog/2014/09/10/conf-dot-d-like-directories-for-zsh-slash-bash-dotfiles/) |

@@ -1,4 +1,6 @@
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/sbin:/usr/local/sbin:/usr/sbin";
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.rvm/bin:$PATH:/sbin:/usr/local/sbin:/usr/sbin:$HOME/.local/go/bin:$HOME/apps/scripts/";
+
+export GOPATH="$HOME/.local/go"
 
 # Make vim the default editor.
 export EDITOR='vim';
@@ -19,12 +21,31 @@ export HISTFILESIZE="${HISTSIZE}";
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth';
 
+# Omit adding different commands to history
+export HISTIGNORE="&:history:l:l[sal]:ls[adf]:ps:ps -A:netstat:[bf]g:exit:pwd:clear:htop:top:[ \t]*"
+
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8';
 export LC_ALL='en_US.UTF-8';
 
-# Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}";
-
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X';
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 3) # yellow
+export LESS_TERMCAP_md=$(tput bold; tput setaf 3) # yellow
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 2) # yellow on green
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7) # white
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
+export GROFF_NO_SGR=1         # For Konsole and Gnome-terminal

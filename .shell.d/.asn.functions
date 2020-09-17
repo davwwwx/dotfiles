@@ -1,0 +1,19 @@
+function getasndomain() {
+ whois -h whois.cymru.com $(dig +short $1)
+}
+
+function getasn(){
+ whois -h whois.cymru.com $1
+}
+
+function radb() {
+ whois -h whois.radb.net $1
+}
+
+function bgp() {
+ whois -h whois.radb.net " -M $1" | egrep '^route:|^origin:|source:' | paste - - - | sort
+}
+
+function asn-amass() {
+  amass intel -org $1 -max-dns-queries 2500 | awk -F, '{print $1}' ORS=',' | sed 's/,$//' | xargs -P3 -I@ -d ',' amass intel -asn @ -max-dns-queries 2500''
+}

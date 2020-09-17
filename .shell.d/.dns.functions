@@ -1,0 +1,96 @@
+# Run `dig` and display the most useful info
+function digga() {
+	dig +nocmd "$1" any +multiline +noall +answer;
+}
+
+function digger() {
+	dig +nocmd "$1" "$2" +multiline +noall +answer;
+}
+
+function ptr() {
+	dig +nocmd -x `dig +short a "$1" | head -n 1` +multiline +noall +answer;
+}
+
+function dnsversion() {
+ dig +tcp +nocmd +multiline +noall +answer @$1 version.bind txt chaos
+}
+
+function quicksub() {
+  tmpfile="$(date "+%s")"
+  jldc-anubis $1 >> $tmpfile
+  threatcrowd $1 >> $tmpfile
+  certspotter $1 >> $tmpfile
+  crtsh $1 >> $tmpfile
+  bufferover $1 >> $tmpfile
+  cat $tmpfile | grep -v "*" | sort -fu
+  rm $tmpfile
+}
+
+function certspotter(){
+  output=$(curl -ks -m 5 "https://certspotter.com/api/v0/certs?domain=$1" | tac | tac | jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u)
+  if [ $# -gt 1 ] ; then
+    echo $output | tr " " "\n"
+  else
+    echo $output | tr " " "\n" | grep $1
+  fi
+}
+
+function certspotters(){
+  while read domain; do
+    output = $(curl -ks -m 5 "https://certspotter.com/api/v0/certs?domain=$domain" | tac | tac | jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u)
+    if [ $# -gt 1 ] ; then
+      echo $output | tr " " "\n"
+    else
+      echo $output | tr " " "\n" | grep $domain
+    fi
+  done < $1
+}
+
+function jldc-anubis() {
+  curl -s "https://jldc.me/anubis/subdomains/$1" | grep --color=never -Po "((http|https):\/\/)?(([\w.-]*)\.([\w]*)\.([A-z]))\w+"
+}
+
+function threatcrowd(){
+  domain=$1
+  dom="%.$domain"
+  curl -s -k -m 5  "https://www.threatcrowd.org/searchApi/v2/domain/report/?domain=$domain" | jq .subdomains | grep '"' | cut -d '"' -f 2 | sort -fu
+}
+
+function bufferover(){
+  domain=$1
+  dom="%.$domain"
+  curl -s -k -m 5  "https://dns.bufferover.run/dns?q=.$domain" | jq .FDNS_A | grep '"' | cut -d '"' -f 2 | sort -fu
+}
+
+function crtsh(){
+  domain=$1
+  dom="%.$domain"
+  curl -k -s -m 5 "https://crt.sh/?q=$dom&output=json" | tr ',' "\n" | grep name_value | awk -F '"' '{print $4}' | sed -e ':a' -e 'N' -e '$!ba' -e 's/\\n/\n/g' | sort -u
+}
+
+function crtshs(){
+  while read domain; do
+      dom="%.$domain"
+      curl -k -s -m 5 "https://crt.sh/?q=$dom&output=json" | tr ',' "\n" | grep name_value | awk -F '"' '{print $4}' | sed -e ':a' -e 'N' -e '$!ba' -e 's/\\n/\n/g' | sort -u
+  done < $1
+}
+
+function securitytrails(){
+  domain=$1
+  curl -k -s -m 5 --url "https://api.securitytrails.com/v1/domain/$domain/subdomains" -H "apikey: $SECURITY_TRAILS" | tac | tac | grep -v '/v1/domain/' | grep '"' | awk -F '"' '{print $2}' | sort -fu | awk -v dom=$domain '{print $1"."dom}'
+}
+
+function c99(){
+  domain=$1
+  curl -k -s -m 5 "https://subdomainfinder.c99.nl/scans/2020-04-04/$domain" | egrep -ho "[a-zA-Z0-9_\.\-]+\.[a-zA-Z0-9_\.\-]*$domain" | sort -fu
+}
+
+function gggithub() {
+  domain=$1
+  google-search.py -t "site:github.com $domain" -b -d -s 0 -e 30 | sed -r "s#//github.com/(.*)/blob/#//raw.githubusercontent.com/\1/#g" | xargs -I '%' sh -c "curl -Lks -m 5 '%' | egrep -o \"[a-zA-Z0-9_\.\-]+\.$domain\""
+}
+
+function ggpastebin() {
+  domain=$1
+  google-search.py -t "site:pastebin.com $domain" -b -d -s 0 -e 30 | sed "s/\.com\//\.com\/raw\//" | xargs -I '%' sh -c "curl -Lks -m 5 '%' | egrep -o \"[a-zA-Z0-9_\.\-]+\.$domain\""
+}

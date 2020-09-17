@@ -14,23 +14,28 @@ alias pj="cd ~/Projects"
 alias g="git"
 
 # List all files colorized in long format
-alias l="ls --color -lFh"
+alias l="ls --group-directories-first --color -lFh"
 
 # List all files colorized in long format, including dot files
-alias la="ls --color -laFh"
+alias la="ls --group-directories-first --color -AFh"
+alias ll="ls --group-directories-first --color -lAFh"
 
 # List only directories
-alias lsd="ls --color -lF | grep --color=never /"
+alias lsd="ls --color -lAF | grep --color=never /"
 
 # List only files
-alias lsf="ls --color -lF | grep --color=never -v /"
+alias lsf="ls --color -lAF | grep --color=never -v /"
 
 # Always use color output for `ls`
-alias ls="ls -F --color"
-alias lsa="ls -Fa --color"
+alias ls="ls --group-directories-first -F --color"
+alias lsa="ls --group-directories-first -FA --color"
+
+# Open tabs rather than buffers
+alias vim="vim -p"
+alias vi="vim -p"
 
 # Lets not overwrite/delete by mistake
-alias mv="mv -i"
+alias mv="mv -iv"
 alias cp="cp -i"
 alias rm="rm -i"
 
@@ -47,7 +52,6 @@ alias week='date +%V'
 
 # IP addresses
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias mylocalip="ifconfig wlan0"
 alias myips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 # Canonical hex dump; some systems have this symlinked
@@ -56,10 +60,19 @@ command -v hd > /dev/null || alias hd="hexdump -C"
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
+# Merge PDF files, preserving hyperlinks
+# Usage: `mergepdf input{1,2,3}.pdf`
+alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf'
+
 # Intuitive map function
 # For example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
 alias map="xargs -n1"
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+	alias "${method}"="lwp-request -m '${method}'"
+done
 
 # Make Grunt print stack traces by default
 command -v grunt > /dev/null && alias grunt="grunt --stack"
@@ -73,3 +86,15 @@ alias path='echo -e ${PATH//:/\\n}'
 alias cls='clear'
 
 alias vdiraw='VBoxManage internalcommands converttoraw'
+
+alias ippers='invoke-rc.d netfilter-persistent save'
+
+alias keys='stty -a'
+
+alias stl='systemctl'
+
+alias dig='dig +tcp'
+
+alias high='pygmentize -O style=rrt -f console256 -g'
+
+alias less='less -r'
